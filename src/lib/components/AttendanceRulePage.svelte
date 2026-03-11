@@ -102,9 +102,13 @@
 		saveSuccess = false;
 
 		// Validasi client-side: semua field wajib diisi
-		if (!form.office_name.trim()) validationErrors.push('Nama Kantor wajib diisi.');
-		if (!form.office_latitude.trim()) validationErrors.push('Latitude wajib diisi.');
-		if (!form.office_longitude.trim()) validationErrors.push('Longitude wajib diisi.');
+		// Cast ke string dulu supaya aman jika ada nilai number/null dari sumber lain (SSR/hydration)
+		if (!String(form.office_name ?? '').trim())
+			validationErrors.push('Nama Kantor wajib diisi.');
+		if (!String(form.office_latitude ?? '').trim())
+			validationErrors.push('Latitude wajib diisi.');
+		if (!String(form.office_longitude ?? '').trim())
+			validationErrors.push('Longitude wajib diisi.');
 		if (!form.clock_in_start) validationErrors.push('Clock In Start wajib diisi.');
 		if (!form.clock_in_end) validationErrors.push('Clock In End wajib diisi.');
 		if (!form.clock_out_time) validationErrors.push('Clock Out wajib diisi.');
