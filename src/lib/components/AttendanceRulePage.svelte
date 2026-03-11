@@ -71,7 +71,9 @@
 		fetchError = null;
 
 		try {
-			const res = await fetch('http://127.0.0.1:8000/api/v1/attendance-admin/rule');
+			const res = await fetch(
+				'https://presence-api-production-988a.up.railway.app/api/v1/attendance-admin/rule'
+			);
 			if (!res.ok) throw new Error(`Server error: ${res.status} ${res.statusText}`);
 
 			const data: AttendanceRuleResponse = await res.json();
@@ -126,11 +128,14 @@
 				clock_out_time: inputToApiTime(form.clock_out_time)
 			};
 
-			const res = await fetch('http://127.0.0.1:8000/api/v1/attendance-admin/rule', {
-				method: 'PUT',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify(body)
-			});
+			const res = await fetch(
+				'https://presence-api-production-988a.up.railway.app/api/v1/attendance-admin/rule',
+				{
+					method: 'PUT',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify(body)
+				}
+			);
 
 			if (!res.ok) {
 				const errData = await res.json().catch(() => ({}));
